@@ -1,0 +1,59 @@
+#include <math.h>
+
+#include <SoftwareSerial.h>  // libreria que permite establecer pines digitales
+        // para comunicacion serie
+
+SoftwareSerial BT(11, 12);  // pin 11 como RX, pin 12 como TX
+
+char DATO = 0;      // variable para almacenar caracter recibido
+
+void setMotor(int port1, int port2, int vel)
+{
+  long velo=vel;
+  int digState=LOW;
+  long finalVelo=0;
+  if(velo==0)
+  {
+    digState=LOW;
+    finalVelo=0;
+  }
+
+  if(velo>0)
+  {
+    digState=LOW;
+    finalVelo=round((155.0/99.0)*velo+(9745.0/99.0));
+    if(finalVelo>255) finalVelo=255;
+  }
+
+  if(velo<0)
+  {
+    digState=HIGH;
+    finalVelo=round((155.0/99.0)*velo+(15500.0/99.0));
+    if(finalVelo<0) finalVelo=0;
+  }
+  analogWrite(port1,finalVelo);
+  digitalWrite(port2,digState);
+}
+
+void setup(){
+  BT.begin(9600);    // comunicacion serie entre Arduino y el modulo a 9600 bps
+  pinMode( 6 , OUTPUT);
+  pinMode( 8 , OUTPUT);
+}
+
+void loop(){
+if (BT.available()){      // si hay informacion disponible desde modulo
+  DATO = BT.read();   // almacena en DATO el caracter recibido desde modulo
+
+  if( DATO == '1' )       // si el caracter recibido es el número 1
+    setMotor(6,8,1);      // Prendo motor sentido horario 
+    
+    
+  if( DATO == '2' )       // si el caracter recibido es el numero 2
+    setMotor(6,8,0);   // apago motor 
+
+  if( DATO == '3' )       // si el caracter recibido es el numero 3
+    setMotor(6,8,-1); // Prendo motor sentido opuesto
+    
+}
+}
