@@ -48,18 +48,18 @@ if (BT.available()){      // si hay informacion disponible desde modulo
   if( DATO == '1' )       // si el caracter recibido es el número 1
 { for (int a=1; a<= ( 201 ); ++a )
   {
-    setMotor(6,8,1);
+    setMotor(6,8,1);   // Se enciende el motor en sentido horario a velocidad 1 
     delay( 10 );
-    setMotor(6,8,0);
+    setMotor(6,8,0);   // Se detiene el motor  
     delay( 20 );
   }}
     
   if( DATO == '2' )       // si el caracter recibido es el numero 2
    { for (int a=1; a<= ( 201 ); ++a )
   {
-    setMotor(6,8,-1);
+    setMotor(6,8,-1);   // Se enciende el motor en sentido anti horario a velocidad 1 
     delay( 10 );
-    setMotor(6,8,0);
+    setMotor(6,8,0);    // Se detiene el motor 
     delay( 20 );
   }}
     
