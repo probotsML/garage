@@ -46,14 +46,22 @@ if (BT.available()){      // si hay informacion disponible desde modulo
   DATO = BT.read();   // almacena en DATO el caracter recibido desde modulo
 
   if( DATO == '1' )       // si el caracter recibido es el número 1
-    setMotor(6,8,1);      // Prendo motor sentido horario 
+{ for (int a=1; a<= ( 201 ); ++a )
+  {
+    setMotor(6,8,1);
+    delay( 10 );
+    setMotor(6,8,0);
+    delay( 20 );
+  }}
     
-    
-  if( DATO == '2' )       // si el caracter recibido es el numero 2
-    setMotor(6,8,0);   // apago motor 
-
-  if( DATO == '3' )       // si el caracter recibido es el numero 3
-    setMotor(6,8,-1); // Prendo motor sentido opuesto
+  if( DATO == '2' )       // si el caracter recibido es el numero 3
+   { for (int a=1; a<= ( 201 ); ++a )
+  {
+    setMotor(6,8,-1);
+    delay( 10 );
+    setMotor(6,8,0);
+    delay( 20 );
+  }}
     
 }
 }
