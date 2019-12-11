@@ -54,7 +54,7 @@ if (BT.available()){      // si hay informacion disponible desde modulo
     delay( 20 );
   }}
     
-  if( DATO == '2' )       // si el caracter recibido es el numero 3
+  if( DATO == '2' )       // si el caracter recibido es el numero 2
    { for (int a=1; a<= ( 201 ); ++a )
   {
     setMotor(6,8,-1);
