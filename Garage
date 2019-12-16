@@ -7,7 +7,7 @@ SoftwareSerial BT(11, 12);  // pin 11 como RX, pin 12 como TX
 
 char DATO = 0;      // variable para almacenar caracter recibido
 
-void setMotor(int port1, int port2, int vel)
+void setMotor(int port1, int port2, int vel)   // Codigo para manejar velocidad del motor (0 a 100) y el sentido de giro (+/-) 
 {
   long velo=vel;
   int digState=LOW;
