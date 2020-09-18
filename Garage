@@ -1,13 +1,11 @@
 #include <math.h>
-
-#include <SoftwareSerial.h>  // libreria que permite establecer pines digitales
-        // para comunicacion serie
+#include <Arduino.h>
+#include <Wire.h>
+#include <SoftwareSerial.h>  // libreria que permite establecer pines digitales para comunicacion serie
 
 SoftwareSerial BT(11, 12);  // pin 11 como RX, pin 12 como TX
 
-char DATO = 0;      // variable para almacenar caracter recibido
-
-void setMotor(int port1, int port2, int vel)   // Codigo para manejar velocidad del motor (0 a 100) y el sentido de giro (+/-) 
+void setMotor(int port1, int port2, int vel)   // Funcion para manejar velocidad del motor (0 a 100) y el sentido de giro (+/-) 
 {
   long velo=vel;
   int digState=LOW;
@@ -41,27 +39,30 @@ void setup(){
   pinMode( 8 , OUTPUT);
 }
 
-void loop(){
-if (BT.available()){      // si hay informacion disponible desde modulo
-  DATO = BT.read();   // almacena en DATO el caracter recibido desde modulo
 
-  if( DATO == '1' )       // si el caracter recibido es el número 1
-{ for (int a=1; a<= ( 201 ); ++a )
-  {
-    setMotor(6,8,5);   // Se enciende el motor en sentido horario a velocidad 1 
-    delay( 6 );
-    setMotor(6,8,0);   // Se detiene el motor  
-    delay( 1 );
-  }}
+void loop(){
+char datoRecibido = 0;      // variable para almacenar caracter recibido
+
+if (BT.available()){      // si hay informacion disponible desde modulo
+  datoRecibido = BT.read();   // almacena el caracter recibido desde modulo
+
+  if( datoRecibido == '1' ){      // si el caracter recibido es el número 1
+    for (int a=1; a<= 201 ; ++a ){
+        setMotor(6,8,5);   // Se enciende el motor en sentido horario a velocidad 1 
+        delay( 6 );
+        setMotor(6,8,0);   // Se detiene el motor  
+        delay( 1 );
+        }
+    }
     
-  if( DATO == '2' )       // si el caracter recibido es el numero 2
-   { for (int a=1; a<= ( 201 ); ++a )
-  {
-    setMotor(6,8,-5);   // Se enciende el motor en sentido anti horario a velocidad 1 
-    delay( 5 );
-    setMotor(6,8,0);    // Se detiene el motor 
-    delay( 4 );
-  }}
+  if( datoRecibido == '2' ){        // si el caracter recibido es el numero 2
+    for (int a=1; a<= 201; ++a ){
+        setMotor(6,8,-5);   // Se enciende el motor en sentido anti horario a velocidad 1 
+        delay( 5 );
+        setMotor(6,8,0);    // Se detiene el motor 
+        delay( 4 );
+        }
+    }
     
 }
 }
